@@ -5,5 +5,6 @@ module.exports = {
     'arrow-body-style': 'off',
     'arrow-parens': 'off',
     'prefer-destructuring': 'off',
+    'no-underscore-dangle': 'off',
   },
 };

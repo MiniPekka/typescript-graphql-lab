@@ -1,7 +1,5 @@
 const { GraphQLScalarType, Kind } = require('graphql');
-const { Schema } = require('mongoose');
-
-const ObjectId = Schema.Types.ObjectId;
+const ObjectId = require('mongoose').Types.ObjectId;
 
 const MongoObjectId = new GraphQLScalarType({
   name: 'ObjectId',

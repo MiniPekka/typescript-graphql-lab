@@ -1,25 +1,12 @@
+const { GraphQLNonNull } = require('graphql');
+
+const bookService = require('../service');
 const {
-  GraphQLObjectType,
-  GraphQLInputObjectType,
-  GraphQLNonNull,
-  GraphQLString,
-} = require('graphql');
-const { Book } = require('./type');
-const { createBook } = require('../service');
-
-const CreateBookPayload = new GraphQLObjectType({
-  name: 'CreateBookPayload',
-  fields: {
-    book: { type: new GraphQLNonNull(Book) },
-  },
-});
-
-const CreateBookInput = new GraphQLInputObjectType({
-  name: 'CreateBookInput',
-  fields: {
-    title: { type: new GraphQLNonNull(GraphQLString) },
-  },
-});
+  CreateBookPayload,
+  CreateBookInput,
+  PostReviewPayload,
+  PostReviewInput,
+} = require('./type');
 
 module.exports = {
   createBook: {
@@ -31,7 +18,22 @@ module.exports = {
     },
     resolve: async (_, { input }) => {
       const { title } = input;
-      const book = await createBook({ title });
+      const book = await bookService.createBook({ title });
+
+      return {
+        book,
+      };
+    },
+  },
+  postReview: {
+    type: PostReviewPayload,
+    args: {
+      input: {
+        type: new GraphQLNonNull(PostReviewInput),
+      },
+    },
+    resolve: async (_, { input }) => {
+      const book = await bookService.postBookReview(input);
 
       return {
         book,
