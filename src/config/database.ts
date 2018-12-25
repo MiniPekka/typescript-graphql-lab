@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import * as mongoose from 'mongoose';
 
 const URI = `mongodb://${process.env.DB_USER}:${
   process.env.DB_PASSWORD

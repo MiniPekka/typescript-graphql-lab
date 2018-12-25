@@ -1,16 +1,15 @@
-const {
+import {
   GraphQLObjectType,
   GraphQLString,
   GraphQLNonNull,
   GraphQLList,
   GraphQLInputObjectType,
-} = require('graphql');
+} from 'graphql';
+import { MongoObjectId } from '../../common/graphql/type';
+import { Review } from '../../review/graphql/type';
+import * as ReviewService from '../../review/service';
 
-const { MongoObjectId } = require('../../common/graphql/type');
-const { Review } = require('../../review/graphql/type');
-const ReviewService = require('../../review/service');
-
-const Book = new GraphQLObjectType({
+export const Book = new GraphQLObjectType({
   name: 'Book',
   fields: {
     _id: { type: new GraphQLNonNull(MongoObjectId) },
@@ -25,28 +24,28 @@ const Book = new GraphQLObjectType({
 });
 
 // Mutation types
-const CreateBookPayload = new GraphQLObjectType({
+export const CreateBookPayload = new GraphQLObjectType({
   name: 'CreateBookPayload',
   fields: {
     book: { type: new GraphQLNonNull(Book) },
   },
 });
 
-const CreateBookInput = new GraphQLInputObjectType({
+export const CreateBookInput = new GraphQLInputObjectType({
   name: 'CreateBookInput',
   fields: {
     title: { type: new GraphQLNonNull(GraphQLString) },
   },
 });
 
-const PostReviewPayload = new GraphQLObjectType({
+export const PostReviewPayload = new GraphQLObjectType({
   name: 'PostReviewPayload',
   fields: {
     book: { type: new GraphQLNonNull(Book) },
   },
 });
 
-const PostReviewInput = new GraphQLInputObjectType({
+export const PostReviewInput = new GraphQLInputObjectType({
   name: 'PostReviewInput',
   fields: {
     title: { type: new GraphQLNonNull(GraphQLString) },
@@ -54,11 +53,3 @@ const PostReviewInput = new GraphQLInputObjectType({
     bookId: { type: new GraphQLNonNull(MongoObjectId) },
   },
 });
-
-module.exports = {
-  Book,
-  CreateBookPayload,
-  CreateBookInput,
-  PostReviewPayload,
-  PostReviewInput,
-};

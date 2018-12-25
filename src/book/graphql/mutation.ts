@@ -1,14 +1,10 @@
-const { GraphQLNonNull } = require('graphql');
+import { GraphQLNonNull } from 'graphql';
+import * as bookService from '../service';
+import {
+  CreateBookPayload, CreateBookInput, PostReviewPayload, PostReviewInput,
+} from './type';
 
-const bookService = require('../service');
-const {
-  CreateBookPayload,
-  CreateBookInput,
-  PostReviewPayload,
-  PostReviewInput,
-} = require('./type');
-
-module.exports = {
+export default {
   createBook: {
     type: CreateBookPayload,
     args: {

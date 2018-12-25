@@ -1,9 +1,9 @@
-const { ApolloServer } = require('apollo-server-express');
-const { GraphQLSchema, GraphQLObjectType } = require('graphql');
-const getReviewLoaders = require('../review/repository').getLoaders;
-const book = require('../book');
+import { ApolloServer } from 'apollo-server-express';
+import { GraphQLSchema, GraphQLObjectType } from 'graphql';
+import { getLoaders as getReviewLoaders } from '../review/repository';
+import * as book from '../book';
 
-function getSchema() {
+export function getSchema() {
   return new GraphQLSchema({
     query: new GraphQLObjectType({
       name: 'Query',
@@ -20,7 +20,7 @@ function getSchema() {
   });
 }
 
-function configureGraphQL(app) {
+export function configureGraphQL(app) {
   const schema = getSchema();
 
   const server = new ApolloServer({
@@ -32,8 +32,3 @@ function configureGraphQL(app) {
 
   server.applyMiddleware({ app, path: '/graphql' });
 }
-
-module.exports = {
-  configureGraphQL,
-  getSchema,
-};

@@ -1,20 +1,23 @@
-const ObjectId = require('mongoose').Types.ObjectId;
-const bookRepo = require('./repository');
-const reviewService = require('../review/service');
+// const ObjectId = require('mongoose').Types.ObjectId;
+import * as mongoose from 'mongoose';
+import * as bookRepo from './repository';
+import * as reviewService from '../review/service';
 
-async function getBookById(id) {
+const ObjectId = mongoose.Types.ObjectId;
+
+export async function getBookById(id) {
   return bookRepo.getBookById(id);
 }
 
-async function getBooks() {
+export async function getBooks() {
   return bookRepo.getBooks();
 }
 
-async function createBook(input) {
+export async function createBook(input) {
   return bookRepo.createBook(input);
 }
 
-async function postBookReview({ bookId, title, body }) {
+export async function postBookReview({ bookId, title, body }) {
   const book = await bookRepo.getBookById(new ObjectId(bookId));
 
   if (!book) {
@@ -26,10 +29,3 @@ async function postBookReview({ bookId, title, body }) {
 
   return result;
 }
-
-module.exports = {
-  getBookById,
-  getBooks,
-  createBook,
-  postBookReview,
-};

@@ -1,8 +1,8 @@
-const DataLoader = require('dataloader');
-const groupBy = require('lodash/groupBy');
-const Review = require('./model');
+import * as DataLoader from 'dataloader';
+import groupBy from 'lodash/groupBy';
+import Review from './model';
 
-async function createReview({ bookId, title, body }) {
+export async function createReview({ bookId, title, body }) {
   return Review.create({ title, body, book: bookId });
 }
 
@@ -15,18 +15,12 @@ async function batchReviews(bookIds) {
   return bookIds.map(bookId => reviewsById[bookId]);
 }
 
-async function reviewsByBookId(bookId, reviewLoader) {
+export async function reviewsByBookId(bookId, reviewLoader) {
   return reviewLoader.load(bookId);
 }
 
-function getLoaders() {
+export function getLoaders() {
   return {
     reviewLoader: new DataLoader(batchReviews),
   };
 }
-
-module.exports = {
-  createReview,
-  reviewsByBookId,
-  getLoaders,
-};

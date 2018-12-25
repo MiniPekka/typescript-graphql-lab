@@ -1,7 +1,9 @@
-const { GraphQLScalarType, Kind } = require('graphql');
-const ObjectId = require('mongoose').Types.ObjectId;
+import { GraphQLScalarType, Kind } from 'graphql';
+import * as mongoose from 'mongoose';
 
-const MongoObjectId = new GraphQLScalarType({
+const ObjectId = mongoose.Types.ObjectId;
+
+export const MongoObjectId = new GraphQLScalarType({
   name: 'ObjectId',
   description: 'Mongo object id scalar type',
   parseValue(value) {
@@ -17,7 +19,3 @@ const MongoObjectId = new GraphQLScalarType({
     return null;
   },
 });
-
-module.exports = {
-  MongoObjectId,
-};
