@@ -8,13 +8,19 @@ const {
 
 const { MongoObjectId } = require('../../common/graphql/type');
 const { Review } = require('../../review/graphql/type');
+const ReviewService = require('../../review/service');
 
 const Book = new GraphQLObjectType({
   name: 'Book',
   fields: {
     _id: { type: new GraphQLNonNull(MongoObjectId) },
     title: { type: new GraphQLNonNull(GraphQLString) },
-    reviews: { type: new GraphQLList(Review) },
+    reviews: {
+      type: new GraphQLList(Review),
+      resolve: async (book, args, context) => {
+        return ReviewService.reviewsByBookId(book._id, context);
+      },
+    },
   },
 });
 

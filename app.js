@@ -1,6 +1,11 @@
 const express = require('express');
+const mongoose = require('mongoose');
+
 const app = express();
 const port = 5555;
+
+// To remove warning from mongoose
+mongoose.set('useFindAndModify', false);
 
 // Configure environment variables
 require('dotenv').config();
@@ -14,5 +19,5 @@ app.get('/', (req, res) => {
 });
 
 app.listen(port, () => {
-  console.log('Server listening on port ' + port);
+  console.log(`Server listening on port ${port}`);
 });

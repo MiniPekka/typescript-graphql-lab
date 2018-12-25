@@ -4,7 +4,8 @@ const Schema = mongoose.Schema;
 
 const bookSchema = new Schema({
   title: { type: String },
-  reviews: [{ type: Schema.Types.ObjectId, ref: 'Review', autopopulate: true }],
+  // Remove reviews to demostrate the usage of dataloader
+  // reviews: [{ type: Schema.Types.ObjectId, ref: 'Review', autopopulate: true }],
 });
 
 bookSchema.plugin(require('mongoose-autopopulate'));

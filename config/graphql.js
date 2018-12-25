@@ -1,5 +1,6 @@
 const { ApolloServer } = require('apollo-server-express');
 const { GraphQLSchema, GraphQLObjectType } = require('graphql');
+const getReviewLoaders = require('../review/repository').getLoaders;
 const book = require('../book');
 
 function getSchema() {
@@ -24,8 +25,9 @@ function configureGraphQL(app) {
 
   const server = new ApolloServer({
     schema,
-    // extract context from request object
-    // context: ({ req: { ctx } }) => ctx,
+    context: {
+      loaders: { ...getReviewLoaders() },
+    },
   });
 
   server.applyMiddleware({ app, path: '/graphql' });
